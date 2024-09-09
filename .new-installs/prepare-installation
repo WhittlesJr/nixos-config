@@ -86,7 +86,7 @@ declare -A PARTITION_SIZE=(
            [EFI]=1
           [boot]=8
          #[main]=remaining
-          [swap]=64
+          [swap]=16
     [other-boot]=2
     [other-main]=20
 )
@@ -141,7 +141,7 @@ POOL_PROPS_COMMON=(
 )
 
 # In GiB
-TMP_DATASET_SIZE=256
+TMP_DATASET_SIZE=128
 VM_ZVOL_SIZE=64
 
 # These are ordered so that parents are created first, as required.  Those with
@@ -166,7 +166,7 @@ MAIN_DATASETS_ORDER=(
     $INST_NAME/var/tmp
 )
 declare -A MAIN_DATASETS=(
-    [$INST_NAME]="          -o mountpoint=/"
+    [$INST_NAME]="          -o mountpoint=/ -o encryption=aes-256-gcm -o keyformat=passphrase -o keylocation=prompt"
     [$INST_NAME/home]="     -o devices=off -o setuid=off"
     # Disable atime for faster accesses to the Nix files
     [$INST_NAME/nix]="      -o atime=off"
@@ -195,8 +195,8 @@ declare -A BOOT_DATASETS=(
 EXTRA_DATASETS_ORDER=(
     $INST_NAME/omit
     $INST_NAME/omit/home
-    VMs
-    VMs/blkdev
+    #VMs
+    #VMs/blkdev
 )
 declare -A EXTRA_DATASETS=(
     # Only used for things that users want to omit from backups.
@@ -204,15 +204,15 @@ declare -A EXTRA_DATASETS=(
     [$INST_NAME/omit/home]="${MAIN_DATASETS[$INST_NAME/home]}"
     # Only used for VM drive images which can either be files which get
     # compressed or zvols which do not.
-    [VMs]="-o mountpoint=/mnt/VMs -o compression=zstd \
-           -o atime=off -o devices=off -o exec=off -o setuid=off \
-           -o primarycache=metadata -o secondarycache=metadata"
-    [VMs/blkdev]="-o canmount=off -o compression=off"
+    #[VMs]="-o mountpoint=/mnt/VMs -o compression=zstd \
+    #       -o atime=off -o devices=off -o exec=off -o setuid=off \
+    #       -o primarycache=metadata -o secondarycache=metadata"
+    #[VMs/blkdev]="-o canmount=off -o compression=off"
 )
-for I in {1..8}; do
-    EXTRA_DATASETS_ORDER+=(VMs/blkdev/$I)
-    EXTRA_DATASETS[VMs/blkdev/$I]="-V ${VM_ZVOL_SIZE}G -s -b $((2 ** ZPOOL_ASHIFT))"
-done
+#for I in {1..8}; do
+#    EXTRA_DATASETS_ORDER+=(VMs/blkdev/$I)
+#    EXTRA_DATASETS[VMs/blkdev/$I]="-V ${VM_ZVOL_SIZE}G -s -b $((2 ** ZPOOL_ASHIFT))"
+#done
 
 # Which channel to use as the needed "nixos-unstable" name.
 CHANNEL_NIXOS_UNSTABLE=https://channels.nixos.org/nixos-unstable
