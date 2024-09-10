@@ -76,19 +76,19 @@ in
       boss = common // {
         extraGroups = [ "wheel" "networkmanager" "wireshark" ];
       };
-      d = common // {
-        extraGroups = [ "audio" "scanner" "lp" ];
-      };
-      z = common;
-      banking = common;
-      bills = common // {
-        extraGroups = [ "bills" ];
-      };
+      #d = common // {
+      #  extraGroups = [ "audio" "scanner" "lp" ];
+      #};
+      #z = common;
+      #banking = common;
+      #bills = common // {
+      #  extraGroups = [ "bills" ];
+      #};
     };
 
-    users.groups = {
-      bills = {};
-    };
+    #users.groups = {
+    #  bills = {};
+    #};
 
     # For each normal user, give it its own sub-directories under /mnt/omit/home/ and
     # /var/tmp/home/.  This is especially useful for a user to place large dispensable things that
@@ -136,7 +136,7 @@ in
     services = {
       # Enable the X11 windowing system.
       xserver = {
-        enable = true;
+        #enable = true;
         autorun = true;
 
         # Configure keymap in X11
@@ -145,7 +145,7 @@ in
           options = "ctrl:nocaps";
         };
 
-        desktopManager.mate.enable = true;
+        #desktopManager.mate.enable = true;
 
         displayManager.lightdm = {
           # background = pkgs.nixos-artwork.wallpapers.simple-red.gnomeFilePath;
@@ -189,6 +189,7 @@ in
 
       # Enable CUPS to print documents.
       printing.enable = mkDefault is.GUI;  # Note: Could be changed elsewhere, if desired.
+      printing.browsing = true;
     };
 
     # Some programs need SUID wrappers, can be configured further, or are
@@ -394,6 +395,6 @@ in
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "21.05"; # Did you read the comment?
+    #system.stateVersion = "21.05"; # Did you read the comment?
   };
 }

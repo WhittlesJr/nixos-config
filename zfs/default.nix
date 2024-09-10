@@ -222,6 +222,7 @@ in
     services.zfs = {
       trim.enable = true;
       autoScrub.enable = true;
+      autoSnapshot.enable = true;
     };
 
     systemd.services.zfs-mount.enable = false;
@@ -279,11 +280,11 @@ in
 
           (zfsPerHostMountSpecs pools.main ([
              { mountPoint = "/"; }
-             { mountPoint = "/mnt/archive";             subDataset = "/archive"; }
-             { mountPoint = "/mnt/records";             subDataset = "/records"; }
+             #{ mountPoint = "/mnt/archive";             subDataset = "/archive"; }
+             #{ mountPoint = "/mnt/records";             subDataset = "/records"; }
              { mountPoint = "/mnt/omit/home";           subDataset = "/omit/home"; }
-             { mountPoint = "/mnt/omit/home/d";         subDataset = "/omit/home/d"; }
-             { mountPoint = "/mnt/omit/home/z";         subDataset = "/omit/home/z"; }
+             #{ mountPoint = "/mnt/omit/home/d";         subDataset = "/omit/home/d"; }
+             #{ mountPoint = "/mnt/omit/home/z";         subDataset = "/omit/home/z"; }
            ]
            ++ (map (mkMountSpec {}) [
                    "/home"
@@ -298,9 +299,9 @@ in
                    "/var/local"
                    "/var/log"
                    "/var/tmp"
-                   "/home/d"
-                   "/home/z"
-                   "/home/z/zone"
+                   #"/home/d"
+                   #"/home/z"
+                   #"/home/z/zone"
               ])
            ++ (map (mkMountSpec { options = ["noauto"]; }) ([
               ] ++ encryptedHomes.noAuto))
