@@ -14,7 +14,7 @@ in
 {
   imports = [
     ./module-args.nix
-    (./per-host + "/${hostName}")
+    (optionals is.nixops == false (./per-host + "/${hostName}"))
     ./debugging.nix
     ./zfs
     ./networking
@@ -40,7 +40,7 @@ in
       message = "Desktop environment requires GUI display.";
     } ];
 
-    my.hostName = hostName;
+    #my.hostName = hostName;
     my.allowedUnfree = [
       "Oracle_VM_VirtualBox_Extension_Pack"
     ];

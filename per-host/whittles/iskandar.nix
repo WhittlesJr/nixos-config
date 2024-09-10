@@ -8,7 +8,7 @@ rec {
 
   imports = [
     ./common.nix
-    ../../configuration.nix
+    (optionals is.nixops ../../configuration.nix)
   ];
 
       #
