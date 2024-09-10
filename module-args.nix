@@ -20,6 +20,7 @@
       # Could add others above, as needed, like: LXQt, etc.
       GTK = GNOME || MATE || XFCE;  # Maintenance: Extend as appropriate when others added above.
       desktop = GNOME || KDE || MATE || XFCE;  # Maintenance: Ditto.
+      nixops = false;
     };
   };
 }

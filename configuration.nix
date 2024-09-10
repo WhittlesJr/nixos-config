@@ -21,6 +21,7 @@ in
     ./secret-service.nix
     ./rootless-docker.nix
     ./spell-checking.nix
+    ./custom
   ];
 
   options.my = {
