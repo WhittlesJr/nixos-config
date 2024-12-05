@@ -10,6 +10,7 @@
       X = config.services.xserver;
       D = X.desktopManager;
     in rec {
+      nixops = false;
       X11 = X.enable;
      #wayland = ;  # TODO: Not sure how nor how much NixOS supports.
       GUI = X11;  # TODO: Should include "or Wayland" also.
