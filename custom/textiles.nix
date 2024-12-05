@@ -16,7 +16,7 @@ in
     environment.systemPackages = with pkgs; [
       inkscape
       seamly2d
-      posterazor
+      #posterazor # Has insecure dependency freeimage-unstable-2021-11-01
     ];
 
     fonts.packages = with pkgs; [

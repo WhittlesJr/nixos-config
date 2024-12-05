@@ -1,6 +1,5 @@
 { lib, config, pkgs, ... }:
 with lib;
-let
 {
   options.my = {
     role.mediaArchival = mkEnableOption "Managing and archiving A/V media";

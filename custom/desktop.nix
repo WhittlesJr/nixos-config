@@ -57,7 +57,6 @@ with lib;
       services.xserver = {
         enable = true;
         exportConfiguration = true;
-        displayManager.sddm.enable = true;
         desktopManager.plasma5 = {
           enable = true;
           runUsingSystemd = true;

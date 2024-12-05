@@ -22,7 +22,7 @@ in
     role.gaming = mkEnableOption "Running videogames";
   };
 
-  config = {
+  config = mkIf config.my.role.gaming {
     environment.systemPackages = with pkgs; [
       protontricks
       jre8

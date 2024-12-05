@@ -1,6 +1,5 @@
 { lib, config, pkgs, ... }:
 with lib;
-let
 {
   options.my = {
     role.architecture = mkEnableOption "Designing architecture / home modelling";

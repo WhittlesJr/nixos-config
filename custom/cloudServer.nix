@@ -25,7 +25,6 @@ with lib;
       };
       networking.firewall = {
         allowedTCPPorts = [ 80 443 ];
-        #allowedUDPPorts = [ 80 443 ];
       };
       security.acme = {
         acceptTerms = true;

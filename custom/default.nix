@@ -1,4 +1,4 @@
-{ nodes, lib, config, pkgs, ... }:
+{ nodes, lib, config, pkgs, is, ... }:
 with lib;
 {
   imports = [
@@ -13,44 +13,47 @@ with lib;
     ./synergy.nix
     ./textiles.nix
   ];
+  config = mkMerge [
+    (if false then {
+      deployment.targetHost = config.networking.hostName;
 
-  deployment.targetHost = (mkIf is.nixops config.networking.hostName);
+      #nix.distributedBuilds = true;
+      nix.buildMachines =
+        (mapAttrsToList
+          (name: node: {hostName = node.config.networking.hostName;
+                        system = "x86_64-linux";
+                        maxJobs = node.config.nix.settings.max-jobs;})
+          nodes);
+    } else {})
+    {
+      services.journald.extraConfig = "Storage=persistent";
+      system.copySystemConfiguration = true;
+      services.fwupd.enable = true;
+      services.thermald.enable = true;
+      systemd.coredump.enable = true;
 
-  #nix.distributedBuilds = true;
-  nix.buildMachines = (mkIf is.nixops
-    (mapAttrsToList
-      (name: node: {hostName = node.config.networking.hostName;
-                    system = "x86_64-linux";
-                    maxJobs = node.config.nix.settings.max-jobs;})
-      nodes));
+      boot.kernel.sysctl = {
+        "vm.vfs_cache_pressure" = 200;
+      };
 
-  services.journald.extraConfig = "Storage=persistent";
-  system.copySystemConfiguration = true;
-  services.fwupd.enable = true;
-  services.thermald.enable = true;
-  systemd.coredump.enable = true;
+      environment.systemPackages = with pkgs; [
+        # luls
+        cowsay
+        fortune
+        sl
 
-  boot.kernel.sysctl = {
-    "vm.vfs_cache_pressure" = 200;
-  };
-
-  environment.systemPackages = with pkgs; [
-    # luls
-    cowsay
-    fortune
-    sl
-
-    # Machine management
-    nixops_unstable_minimal
+        # Machine management
+        nixops_unstable_minimal
 
 
-    # hardware
-    smartmontools
+        # hardware
+        smartmontools
 
-    # common tools
-    mkpasswd
-    tree
-    babashka
-  ];
+        # common tools
+        mkpasswd
+        tree
+        babashka
+      ];
 
+    }];
 }
