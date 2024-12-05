@@ -14,8 +14,10 @@ rec {
   my = {
     zfs = {
       mirrorDrives = [
-        "nvme-CT2000T500SSD8_240646EA4ECB"
-        "nvme-WD_BLACK_SN850X_HS_2000GB_24120D800169"
+        "ata-TOSHIBA_HDWD110_4670AK5NS"
+        "ata-TOSHIBA_HDWD110_Y5PPGMPFS"
+        #"nvme-CT2000T500SSD8_240646EA4ECB"
+        #"nvme-WD_BLACK_SN850X_HS_2000GB_24120D800169"
       ];
       partitions = {
         legacyBIOS = 1;
@@ -24,7 +26,7 @@ rec {
         main       = 4;
         swap       = 5;
       };
-      pools = let id = "6cxoeq"; in {
+      pools = let id = "mbncrq"; in {
         boot.name = "boot-${id}";
         main.name = "main-${id}";
       };

@@ -10,7 +10,7 @@ in
 let
   # Choose for the particular host machine.
   domain = "whittles";
-  machine = "";
+  machine = "iskandar";
   hostName = "${domain}-${machine}";
 in
 {

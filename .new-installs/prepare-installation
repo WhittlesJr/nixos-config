@@ -26,7 +26,7 @@ esac
 # Definitions
 
 # The host name of this installation.
-INST_NAME=yoyo
+INST_NAME=whittles-iskandar
 # A reasonably-globally-unique random identifier suffix for the ZFS pool names.
 # Useful because pool names must be unique when imported, and this allows
 # importing multiple pools that have the same "boot" or "main" prefix.
@@ -40,8 +40,10 @@ done
 [ ${#INST_ID} == 6 ]
 
 DRIVES=(
-    /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R706239E
-    /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R706236Y
+    /dev/disk/by-id/ata-TOSHIBA_HDWD110_4670AK5NS
+    /dev/disk/by-id/ata-TOSHIBA_HDWD110_Y5PPGMPFS
+    #/dev/disk/by-id/nvme-CT2000T500SSD8_240646EA4ECB
+    #/dev/disk/by-id/nvme-WD_BLACK_SN850X_HS_2000GB_24120D800169
 )
 VDEV=mirror
 
