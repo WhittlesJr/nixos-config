@@ -4,10 +4,9 @@
 { nodes, stdenv, config, lib, pkgs, callPackage, ... }:
 with lib;
 rec {
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 
   imports = [
-    ./common.nix
     (optionals is.nixops ../../configuration.nix)
   ];
 

@@ -9,12 +9,15 @@ in
 
 let
   # Choose for the particular host machine.
-  hostName = "yoyo";
+  domain = "whittles";
+  machine = "";
+  hostName = "${domain}-${machine}";
 in
 {
   imports = [
     ./module-args.nix
-    (optionals is.nixops == false (./per-host + "/${hostName}"))
+    (optionals is.nixops == false (./per-host + "/${domain}/common.nix"))
+    (optionals is.nixops == false (./per-host + "/${domain}/${machine}.nix"))
     ./debugging.nix
     ./zfs
     ./networking
