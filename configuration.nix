@@ -16,8 +16,7 @@ in
 {
   imports = [
     ./module-args.nix
-    (optionals is.nixops == false (./per-host + "/${domain}/common.nix"))
-    (optionals is.nixops == false (./per-host + "/${domain}/${machine}.nix"))
+    (./per-host + "/${domain}/common.nix")
     ./debugging.nix
     ./zfs
     ./networking
@@ -25,7 +24,9 @@ in
     ./rootless-docker.nix
     ./spell-checking.nix
     ./custom
-  ];
+  ] ++ (optionals (is.nixops == false)
+    [(./per-host + "/${domain}/${machine}.nix")])
+;
 
   options.my = {
     hostName = mkOption { type = options.networking.hostName.type; };
