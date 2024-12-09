@@ -10,7 +10,6 @@ rec {
     (optionals is.nixops ../../configuration.nix)
   ];
 
-      #
 
   my = {
     hostName = "whittles-iskandar";
@@ -26,45 +25,61 @@ rec {
         main       = 4;
         swap       = 5;
       };
-      pools = let id = "vfwzza"; in {
+      pools = let id = "6cxoeq"; in {
         boot.name = "boot-${id}";
         main.name = "main-${id}";
       };
       usersZvolsForVMs = [
       ];
     };
+    intended.netPorts.TCP = [
+      24800                 # Synergy
+      80 443 8083           # Nginx
+      32400 3005 8324 32469 # Plex
+    ];
+    intended.netPorts.UDP = [
+      1900 5353 32410 32412 32413 32414 # Plex
+    ];
+
     role = {
-      architecture = true;
+      architecture = false;
       desktop = true;
       development = {
         nix = true;
-        clojure = true;
+        clojure = false;
       };
-      digitalArt = true;
-      gaming = true;
-      mediaArchival = true;
-      modeling3D = true;
-      textiles = true;
+      digitalArt = false;
+      gaming = false;
+      mediaArchival = false;
+      modeling3D = false;
+      textileDesign = false;
     };
     services = {
-      printing3D = true;
+      printing3D = false;
       synergy.server = {
-        enable = true;
+        enable = false;
         serverScreen = "left";
         clientScreen = "right";
-        clientNode = nodes.alex-laptop;
+        #clientNode = nodes.alex-laptop;
       };
-      anki = true;
-      calibre = true;
+      anki = false;
+      calibre = false;
       nextCloud = false;
-      plex = true;
+      plex = false;
       mediaRoot = "/media";
       webDomain = "tmp";
       adminEmail = "tmp";
-      adminPassword = "tmp";
     };
     allowedUnfree = [
-      "nvidia-X11"
+      "nvidia-x11"
+      "hplip"
+      "plexmediaserver"
+      "makemkv"
+      "steam-run"
+      "steam-original"
+      "steam"
+      "plexamp"
+      "nvidia-settings"
     ];
   };
 
