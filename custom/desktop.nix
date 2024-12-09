@@ -49,8 +49,6 @@ with lib;
         };
       };
 
-      sound.enable = true;
-
       # Display
       services.displayManager.sddm.enable = true;
 

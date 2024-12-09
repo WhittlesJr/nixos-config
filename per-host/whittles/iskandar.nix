@@ -111,16 +111,13 @@ rec {
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    open = true;
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   nix.settings.max-jobs = 14;
