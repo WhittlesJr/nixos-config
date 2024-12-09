@@ -17,6 +17,7 @@ in
   imports = [
     ./module-args.nix
     (./per-host + "/${domain}/common.nix")
+    (./per-host + "/${domain}/${machine}.nix") # Uncomment for nixos-install/rebuild
     ./debugging.nix
     ./zfs
     ./networking
@@ -24,9 +25,7 @@ in
     ./rootless-docker.nix
     ./spell-checking.nix
     ./custom
-  ] ++ (optionals (is.nixops == false)
-    [(./per-host + "/${domain}/${machine}.nix")])
-;
+  ];
 
   options.my = {
     hostName = mkOption { type = options.networking.hostName.type; };
