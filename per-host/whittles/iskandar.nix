@@ -12,7 +12,6 @@ rec {
 
 
   my = {
-    hostName = "whittles-iskandar";
     zfs = {
       mirrorDrives = [
         "nvme-CT2000T500SSD8_240646EA4ECB"
